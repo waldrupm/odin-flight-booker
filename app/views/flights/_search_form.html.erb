@@ -1,0 +1,17 @@
+<!-- TODO: if the form is being shown again after a search,
+   have the users previous search values pre-populated in the form,
+   move queries to controller and pass them to the form 
+-->
+
+<%= form_with url: "/flights", method: "get", local: true do |f| %>
+  <%= f.label :from_airport_id, "From" %>
+  <%= f.select :from_airport_id, options_from_collection_for_select(Airport.all, :id, :code) %>
+  <%= f.label :to_airport_id, "To" %>
+  <%= f.select :to_airport_id, options_from_collection_for_select(Airport.all, :id, :code) %>
+  <%= f.label :num_passengers, "Number of Passengers" %>
+  <%= f.number_field :num_passengers, min: 1, max: 4 %>
+  <%= f.label :date, "Date" %>
+  <% # build a collection select named :date where the options are only dates that have flights and ordered by soonest, format the dates in mm/dd/yy format %>
+  <%= f.select :date, Flight.all.map { |f| f.departure_time.strftime("%m/%d/%Y") }.uniq.sort %>
+  <%= f.submit "Search" %>
+<% end %>
