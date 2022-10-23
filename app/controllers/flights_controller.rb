@@ -1,5 +1,6 @@
 class FlightsController < ApplicationController
   def index
+    # TODO: pass search params into the view so they can be prepopulated in the search form rather than query in a view
     if [params[:from_airport_id], params[:to_airport_id], params[:date]].any? 
       # build a query where all three params are optional
       query = Flight.where(nil)
