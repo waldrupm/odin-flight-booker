@@ -8,6 +8,7 @@ class FlightsController < ApplicationController
       query = query.where(arrival_airport_id: params[:to_airport_id]) if params[:to_airport_id].present?
       query = query.where("DATE(departure_time) = ?", params[:date]) if params[:date].present?
       @flights = query.includes(:departure_airport, :arrival_airport)
+      @search = {from_airport_id: params[:from_airport_id], to_airport_id: params[:to_airport_id], date: params[:date], num_passengers: params[:num_passengers]}
    else
     @flights = Flight.all.includes(:departure_airport, :arrival_airport)
    end

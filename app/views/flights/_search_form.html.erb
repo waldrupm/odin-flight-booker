@@ -5,13 +5,13 @@
 
 <%= form_with url: "/flights", method: "get", local: true do |f| %>
   <%= f.label :from_airport_id, "From" %>
-  <%= f.select :from_airport_id, options_from_collection_for_select(Airport.all, :id, :code), :include_blank => true %>
+  <%= f.select :from_airport_id, options_from_collection_for_select(Airport.all, :id, :code, selected: @search.try!(:[], :from_airport_id)), :include_blank => true %>
   <%= f.label :to_airport_id, "To" %>
-  <%= f.select :to_airport_id, options_from_collection_for_select(Airport.all, :id, :code), :include_blank => true %>
+  <%= f.select :to_airport_id, options_from_collection_for_select(Airport.all, :id, :code, selected: @search.try!(:[], :to_airport_id)), :include_blank => true %>
   <%= f.label :num_passengers, "# Passengers" %>
-  <%= f.number_field :num_passengers, min: 1, max: 4 %>
+  <%= f.number_field :num_passengers, value: @search.try!(:[], :num_passengers), min: 1, max: 4 %>
   <%= f.label :date, "Date" %>
   <% # build a collection select named :date where the options are only dates that have flights and ordered by soonest, format the dates in mm/dd/yy format %>
-  <%= f.select :date, Flight.all.map { |f| f.departure_time.strftime("%m/%d/%Y") }.uniq.sort %>
+  <%= f.select :date, Flight.all.map { |f| f.departure_time.strftime("%m/%d/%Y") }.uniq.sort, selected: @search.try!(:[], :date) %>
   <%= f.submit "Search", class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
 <% end %>
