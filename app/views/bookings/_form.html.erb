@@ -1,0 +1,16 @@
+<div class="isolate -space-y-px rounded-md shadow-sm">
+  <%= form_for @booking do |f| %>
+    <%= f.fields_for :passengers do |passenger| %>
+      <div class="relative rounded-md rounded-b-none border border-gray-300 px-3 py-2 focus-within:z-10 focus-within:border-indigo-600 focus-within:ring-1 focus-within:ring-indigo-600">
+        <%= passenger.label :name, { class: "block text-xs font-medium text-gray-900" } %>
+        <%= passenger.text_field :name, { class: "block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm", placeholder: "Passenger Name" } %>
+      </div>
+      <div class="relative rounded-md mb-4 rounded-t-none border border-gray-300 px-3 py-2 focus-within:z-10 focus-within:border-indigo-600 focus-within:ring-1 focus-within:ring-indigo-600">
+        <%= passenger.label :email, { class: "block text-xs font-medium text-gray-900" } %>
+        <%= passenger.email_field :email, { class: "block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm", placeholder: "Passenger Email" } %>
+      </div>
+    <% end %>
+    <%= f.submit class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
+  <% end %>
+</div>
+
