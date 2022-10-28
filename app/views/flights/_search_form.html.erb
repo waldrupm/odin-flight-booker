@@ -1,8 +1,3 @@
-<!-- TODO: if the form is being shown again after a search,
-   have the users previous search values pre-populated in the form,
-   move queries to controller and pass them to the form 
--->
-
 <%= form_with url: "/flights", method: "get", local: true do |f| %>
   <%= f.label :from_airport_id, "From" %>
   <%= f.select :from_airport_id, options_from_collection_for_select(Airport.all, :id, :code, selected: @search.try!(:[], :from_airport_id)), :include_blank => true %>
